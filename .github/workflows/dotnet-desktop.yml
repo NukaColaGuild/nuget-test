@@ -20,13 +20,13 @@ jobs:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ./TestApp/TestApp.csproj
 
       - name: Build
-        run: dotnet build --configuration Release
+        run: dotnet build ./TestApp/TestApp.csproj --configuration Release
 
       - name: Pack
-        run: dotnet pack --configuration Release --output ./nupkg
+        run: dotnet pack ./TestApp/TestApp.csproj --configuration Release --output ./nupkg
 
       - name: Add GitHub NuGet source
         run: dotnet nuget add source \
