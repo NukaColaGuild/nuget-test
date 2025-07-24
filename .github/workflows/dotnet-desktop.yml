@@ -29,8 +29,8 @@ jobs:
         run: dotnet pack ./TestApp/TestApp.csproj --configuration Release --output ./nupkg
 
       - name: Add GitHub NuGet source
-        run: dotnet nuget add source --username "${GITHUB_ACTOR}" --password "${{ secrets.GH_TOKEN }}" --store-password-in-clear-text --name "github" "https://nuget.pkg.github.com/NukaColaGuild/nuget-test/index.json"
+        run: dotnet nuget add source --username "${GITHUB_ACTOR}" --password "${{ secrets.GH_TOKEN }}" --store-password-in-clear-text --name "github" "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
 
       - name: Push to GitHub NuGet
-        run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/NukaColaGuild/nuget-test/index.json" --api-key "${{ secrets.GH_TOKEN }}" --skip-duplicate
+        run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key "${{ secrets.GH_TOKEN }}" --skip-duplicate
 
