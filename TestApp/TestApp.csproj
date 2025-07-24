@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet Package Metadata -->
-    <PackageId>TestApp</PackageId> <!-- Replace with your actual package name -->
-    <Version>1.0.1</Version> <!-- Increment version on each push -->
+    <PackageId>nuget-test</PackageId> <!-- Replace with your actual package name -->
+    <Version>1.0.0</Version> <!-- Increment version on each push -->
     <Authors>NukaColaGuild</Authors>
     <Company>NukaColaGuild</Company>
     <Description>A test NuGet package published to GitHub Packages</Description>
