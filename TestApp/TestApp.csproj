@@ -4,8 +4,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Authors>NukaColaGuild</Authors>
+    <Company>NukaColaGuild</Company>
+    <Description>A test NuGet package published to GitHub Packages</Description>
     <RepositoryUrl>https://github.com/NukaColaGuild/nuget-test</RepositoryUrl>
     <PackageProjectUrl>https://github.com/NukaColaGuild/nuget-test</PackageProjectUrl>
+    <PackageTags>nuget;test;nswag</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
 	<ItemGroup>
