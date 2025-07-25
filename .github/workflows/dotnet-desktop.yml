@@ -19,50 +19,17 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      - name: Configure NuGet
-        run: |
-          cat > NuGet.config <<EOL
-          <?xml version="1.0" encoding="utf-8"?>
-          <configuration>
-            <packageSources>
-              <clear />
-              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-              <add key="github" value="https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" />
-            </packageSources>
-            <packageSourceCredentials>
-              <github>
-                <add key="Username" value="${{ github.actor }}" />
-                <add key="ClearTextPassword" value="${{ secrets.GITHUB_TOKEN }}" />
-              </github>
-            </packageSourceCredentials>
-          </configuration>
-          EOL
-             echo "NuGet.config created successfully:"
-             cat ./NuGet.config
-
       - name: Restore dependencies
         run: dotnet restore ./TestApp/TestApp.csproj
 
       - name: Build
-        run: dotnet build ./TestApp/TestApp.csproj --configuration Release
-
-      - name: Check generated client
-        run: |
-          echo "Listing generated client files:"
-          ls -l ./TestApp/Client
-  
+        run: dotnet build ./TestApp/TestApp.csproj --configuration Release  
 
       - name: Pack
         run: dotnet pack ./TestApp/TestApp.csproj --configuration Release --output ./nupkg
 
-      - name: Inspect NuGet package
-        run: |
-          dotnet tool install --global NuGetPackageExplorer || true
-          unzip -l ./nupkg/*.nupkg
-
-
-      # - name: Add GitHub NuGet source
-      #   run: dotnet nuget add source --username "${GITHUB_ACTOR}" --password "${{ secrets.GH_TOKEN }}" --store-password-in-clear-text --name "github" "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+      - name: Add GitHub NuGet source
+        run: dotnet nuget add source --username "${GITHUB_ACTOR}" --password "${{ secrets.GH_TOKEN }}" --store-password-in-clear-text --name "github" "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
 
       - name: Push to GitHub NuGet
         run: dotnet nuget push "./nupkg/*.nupkg" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key "${{ secrets.GH_TOKEN }}" --skip-duplicate
