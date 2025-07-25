@@ -37,6 +37,8 @@ jobs:
             </packageSourceCredentials>
           </configuration>
           EOL
+             echo "NuGet.config created successfully:"
+             cat ./NuGet.config
 
       - name: Restore dependencies
         run: dotnet restore ./TestApp/TestApp.csproj
