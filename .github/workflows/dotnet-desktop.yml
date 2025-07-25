@@ -46,8 +46,20 @@ jobs:
       - name: Build
         run: dotnet build ./TestApp/TestApp.csproj --configuration Release
 
+      - name: Check generated client
+        run: |
+          echo "Listing generated client files:"
+          ls -l ./TestApp/Client
+  
+
       - name: Pack
         run: dotnet pack ./TestApp/TestApp.csproj --configuration Release --output ./nupkg
+
+      - name: Inspect NuGet package
+        run: |
+          dotnet tool install --global NuGetPackageExplorer || true
+          unzip -l ./nupkg/*.nupkg
+
 
       # - name: Add GitHub NuGet source
       #   run: dotnet nuget add source --username "${GITHUB_ACTOR}" --password "${{ secrets.GH_TOKEN }}" --store-password-in-clear-text --name "github" "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
