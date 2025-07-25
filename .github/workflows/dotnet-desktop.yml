@@ -21,20 +21,22 @@ jobs:
 
       - name: Configure NuGet
         run: |
-          echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+          cat > NuGet.config <<EOL
+          <?xml version="1.0" encoding="utf-8"?>
           <configuration>
             <packageSources>
               <clear />
               <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-              <add key=\"github\" value=\"https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json\" />
+              <add key="github" value="https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" />
             </packageSources>
             <packageSourceCredentials>
               <github>
-                <add key=\"Username\" value=\"${{ github.actor }}\" />
-                <add key=\"ClearTextPassword\" value=\"${{ secrets.GITHUB_TOKEN }}\" />
+                <add key="Username" value="${{ github.actor }}" />
+                <add key="ClearTextPassword" value="${{ secrets.GITHUB_TOKEN }}" />
               </github>
             </packageSourceCredentials>
-          </configuration>" > NuGet.config
+          </configuration>
+          EOL
 
       - name: Restore dependencies
         run: dotnet restore ./TestApp/TestApp.csproj
