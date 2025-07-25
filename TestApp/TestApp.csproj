@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
 
     <!-- NuGet Package Metadata -->
-    <PackageId>nuget-test</PackageId> <!-- Replace with your actual package name -->
+    <PackageId>nuget-test</PackageId>
     <Version>1.0.0</Version> <!-- Increment version on each push -->
     <Authors>NukaColaGuild</Authors>
     <Company>NukaColaGuild</Company>
@@ -14,7 +14,8 @@
     <RepositoryUrl>https://github.com/NukaColaGuild/nuget-test</RepositoryUrl>
     <PackageProjectUrl>https://github.com/NukaColaGuild/nuget-test</PackageProjectUrl>
     <PackageTags>nuget;test;nswag</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> <!-- Ensures the package is created on build -->
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeContentInPack>true</IncludeContentInPack> <!-- Ensures content files are included -->
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Client/**/*.cs" Pack="true" PackagePath="contentFiles\cs\netstandard2.0\Client" />
   </ItemGroup>
 
   <Target Name="NSwagGenerate" BeforeTargets="BeforeBuild">
